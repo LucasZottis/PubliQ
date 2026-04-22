@@ -1,29 +1,42 @@
-# publish-scripts
+# 🚀 PubliQ
 
-Ferramenta em PowerShell para automatizar publicação e versionamento de projetos .NET com base em um arquivo de configuração por repositório.
+> Automação inteligente de versionamento e publicação para projetos.
 
-## O que ela faz
-- Calcula nova versão (`major`, `minor`, `patch` ou versão explícita).
-- Garante que o repositório esteja em estado limpo antes de publicar.
-- Lê o `publish.settings.json` do projeto e executa o fluxo de publicação configurado.
-- Dá suporte a scripts `Before`/`After` no nível global e por projeto.
+**PubliQ** é uma ferramenta focada em simplificar o processo de bump de versão, organização de commits e publicação de projetos, trazendo padronização, segurança e produtividade para o fluxo de release.
 
-## Uso básico
-No repositório que será publicado:
+---
 
-```powershell
-# criar configuração inicial
-./init-config.ps1
+## ✨ Objetivo
 
-# publicar incrementando versão
-./publish.ps1 latest patch
+Eliminar tarefas manuais repetitivas no processo de publicação, como:
 
-# publicar versão específica
-./publish.ps1 latest 1.2.3
-```
+- Atualização de versão
+- Commit automático
+- Organização de release
+- Padronização de fluxo
+- Publicação controlada
 
-## Configuração
-Use o arquivo `json/publish.settings.template.json` como base para preencher:
-- `DefaultBranch`
-- `Projects` (caminhos, destino de publish, stack e argumentos)
-- Scripts opcionais antes/depois do processo
+Tudo isso via **CLI simples, previsível e automatizada**.
+
+---
+
+## 🧠 Filosofia
+
+PubliQ foi criado com foco em:
+
+- Simplicidade
+- Automação segura
+- Fluxo previsível
+- Padronização de versionamento
+- Experiência limpa no terminal
+
+---
+
+## 📦 Funcionalidades
+
+- ✅ Bump de versão (`major`, `minor`, `patch`)
+- ✅ Geração automática de nova versão
+- ✅ Commit automatizado
+- ✅ Controle de fluxo de publicação
+- ✅ Padronização de processo
+- 🚧 Estrutura preparada para expansão
