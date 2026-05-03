@@ -27,7 +27,7 @@
   "definitions": {
     "project": {
       "type": "object",
-      "required": ["Path", "PublishPath", "Type"],
+      "required": ["Path", "PublishPath", "Stack"],
       "additionalProperties": false,
       "properties": {
         "Name": {

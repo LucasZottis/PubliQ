@@ -12,7 +12,7 @@ $currentVersion = Get-CurrentVersion
 # Chama seu método existente
 $NewVersion = Resolve-NewVersion -CurrentVersion $currentVersion -bump $Version
 
-if (-not $Version) {
+if (-not $NewVersion) {
     throw "Falha ao gerar nova versão."
 }
 
