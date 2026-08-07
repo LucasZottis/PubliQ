@@ -3,7 +3,7 @@ Import-Module ".\modules\WriteFunctions.psm1"
 function Set-PathExtPS1 {
     if (Confirm-PathExtPS1) {
         Write-Info ".PS1 já está no PATHEXT."
-        retur;
+        return
     }
 
     Write-Log "Adicionando extensão .ps1"    
