@@ -1,0 +1,55 @@
+name: Versionamento automático do JSON Schema
+
+# Dispara quando o JSON schema (ou o template de exemplo) muda na branch
+# padrão. A regra de negócio (major/minor/fix) é decidida com base no
+# publish.settings.schema.json, que é o arquivo que define quais campos são
+# obrigatórios (bloco "required" do JSON Schema):
+#   - novo campo obrigatório, ou campo que passou a ser obrigatório -> major
+#   - novo campo opcional                                           -> minor
+#   - qualquer outra alteração (ex.: correção de um campo)          -> fix (patch)
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'json/publish.settings.schema.json'
+      - 'json/publish.settings.template.json'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Determinar tipo de versão (major/minor/fix)
+        id: version
+        env:
+          BEFORE_SHA: ${{ github.event.before }}
+          AFTER_SHA: ${{ github.sha }}
+        run: node .github/scripts/version-bump.mjs
+
+      - name: Criar tag e release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          NEXT_VERSION: ${{ steps.version.outputs.next_version }}
+        run: |
+          if gh release view "$NEXT_VERSION" >/dev/null 2>&1; then
+            echo "Release $NEXT_VERSION já existe, pulando."
+            exit 0
+          fi
+
+          gh release create "$NEXT_VERSION" \
+            --title "$NEXT_VERSION" \
+            --target "${{ github.sha }}" \
+            --generate-notes
