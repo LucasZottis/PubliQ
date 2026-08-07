@@ -1,9 +1,9 @@
 name: Versionamento automático do JSON Schema
 
-# Dispara quando o JSON schema (ou o template de exemplo) muda na branch
-# padrão. A regra de negócio (major/minor/fix) é decidida com base no
-# publish.settings.schema.json, que é o arquivo que define quais campos são
-# obrigatórios (bloco "required" do JSON Schema):
+# Dispara quando o publish.settings.schema.json muda na branch padrão.
+# A regra de negócio (major/minor/fix) é decidida com base nesse arquivo,
+# que é o que define quais campos são obrigatórios (bloco "required" do
+# JSON Schema):
 #   - novo campo obrigatório, ou campo que passou a ser obrigatório -> major
 #   - novo campo opcional                                           -> minor
 #   - qualquer outra alteração (ex.: correção de um campo)          -> fix (patch)
@@ -13,7 +13,6 @@ on:
       - main
     paths:
       - 'json/publish.settings.schema.json'
-      - 'json/publish.settings.template.json'
 
 permissions:
   contents: write
