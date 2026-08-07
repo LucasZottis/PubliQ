@@ -50,10 +50,18 @@ function Set-PathExt {
         return
     }
     
-    # Define variável opcional
+    # Adiciona o diretório do Publicador ao PATH existente, sem sobrescrevê-lo
+    $currentPath = [Environment]::GetEnvironmentVariable("Path", "User")
+    $newPath = if ([string]::IsNullOrEmpty($currentPath)) {
+        $publisherRoot
+    }
+    else {
+        "$currentPath;$publisherRoot"
+    }
+
     [Environment]::SetEnvironmentVariable(
         "Path",
-        $publisherRoot,
+        $newPath,
         "User"
     )
 
